@@ -50,7 +50,6 @@
       isMenuLarge = true;
 
       return global.data.getLots().then(function(data) {
-
         var finishedAuctions = data.filter(function(item, index) {
           return !item.isActive;
         }).filter(function(item, index, array){
@@ -96,7 +95,9 @@
         list: '.carousel__container--finished .carousel__l',
         item: '.carousel__container--finished .carousel__i',
         navRight: '.carousel__container--finished .carousel__right',
-        navLeft: '.carousel__container--finished .carousel__left'
+        navLeft: '.carousel__container--finished .carousel__left',
+        speed: 6000,
+        animate: false
       });
 
       new global.carousel().start({
@@ -104,7 +105,8 @@
         list: '.carousel__container--recent .carousel__l',
         item: '.carousel__container--recent .carousel__i',
         navRight: '.carousel__container--recent .carousel__right',
-        navLeft: '.carousel__container--recent .carousel__left'
+        navLeft: '.carousel__container--recent .carousel__left',
+        animate: false
       });
 
       loadHandlers();
@@ -391,11 +393,17 @@
     }).done(function(msg, textStatus) {
       console.log(textStatus + ': ' + msg);
       authFormsManager.registerHide();
+      clearFormInput(document.querySelectorAll('.register__form')[0]);
       createDialog('You sussecfully registered!');
       setTimeout(function() {
         removeDialog();
       }, 2000);
     }).fail(function(err) {
+      authFormsManager.registerHide();
+      createDialog('You already registered!');
+      setTimeout(function() {
+        removeDialog();
+      }, 2000);
       console.log("Error: ", err.status + " "+ err.statusText);
     });
   }
@@ -662,8 +670,11 @@
 
   //clear forms
   //-------------------Start: clear form---------------------------------------
-  function clearFormInput() {
+  function clearFormInput(selectorForm) {
     //TODO: add function to clear forms input after submit
+    $(selectorForm).find('input[type="text"], input[type="password"], textarea').each(function(elem) {
+      $(elem).val('');
+    });
   }
   //--------------------End: clear form----------------------------------------
   //=========================FORMS=============================================

@@ -11,6 +11,17 @@
     type: "GET",
     dataType: "json"
   });
+  // var promiseAuctions = $.ajax({
+  //   url: "/lots",
+  //   type: "GET",
+  //   dataType: "json"
+  // });
+  //
+  // var promiseUsers = $.ajax({
+  //   url: "/users",
+  //   type: "GET",
+  //   dataType: "json"
+  // });
 
   var Data = {
     getUser: function(userId) {

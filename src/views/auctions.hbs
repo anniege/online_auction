@@ -65,13 +65,13 @@
     <figure class="auction__item">
       <a href="#/auctions/lot?id={{_id}}" class="auction__link">
         {{#if isActive}}
-        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"><span class="auction__date">Ends: {{dateFormat ends}}</span></p>
+        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"></p>
         <div class="auction__price auction__price--active"><p><span>Current price:</span> {{price}}</p></div>
         {{else}}
-        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"><span class="auction__date">Auction finished</span></p>
+        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"></p>
         <div class="auction__price auction__price--active"><p><span>Final price:</span> {{price}}</p></div>
         {{/if}}
-        <figcaption class="auction__caption">{{title}}</figcaption>
+        <figcaption class="auction__caption">{{title}}<span class="auction__date">Ends: {{dateFormat ends}}</span></figcaption>
       </a>
       <ul class="auction-tags clearfix">
         {{#each tags}}

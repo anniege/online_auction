@@ -68,9 +68,6 @@
 
 
     if (main && header && route.controller) {
-      // var menuLink = $('a[href$="'+ tempUrl +'"]');
-      // setActiveMenu(menuLink);
-
       var promiseHeader = Handlebars.templates['header'];
       var promiseMain = Handlebars.templates[route.templateName];
       var promiseData = route.controller(params);

@@ -56,7 +56,7 @@ var carousel = function() {
     this.opts.navRight = options.navRight || '.carousel__right';
     this.opts.navLeft = options.navLeft || '.carousel__left';
     this.opts.speed = options.speed || 5000;
-    this.opts.animate = options.animate || false;
+    this.opts.animate = options.animate || true;
 
     carouselContainer = document.querySelectorAll(this.opts.container)[0];
     carouselList = document.querySelectorAll(this.opts.list)[0];
@@ -74,9 +74,9 @@ var carousel = function() {
         self.pauseTimer(self.slideRight);
       });
 
-      // window.addEventListener('resize', function() {
-      //   this.init();
-      // });
+      window.addEventListener('resize', function() {
+        self.init();
+      });
 
       this.init();
 

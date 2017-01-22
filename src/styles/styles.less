@@ -469,6 +469,12 @@ img[data-src] {
 	background-color: @default;
 }
 
+.section.finished {
+	.auction__caption {
+		bottom: 0;
+	}
+}
+
 //auction----------------------------------------------------------------------
 .auction {
 	position: relative;
@@ -504,12 +510,15 @@ img[data-src] {
 
 	&__date {
 		position: absolute;
-		display: none;
+		bottom: -28px;
+		left: 0;
 		width: 100%;
-		padding: 15px 0 5px;
+		padding: 5px 0;
 		font-size: 10px;
 		font-weight: bold;
-		color: red;
+		color: @bold;
+		background-color: yellow;
+		opacity: .8;
 		z-index: 9999;
 	}
 
@@ -573,7 +582,9 @@ img[data-src] {
 
 	&__caption {
 		position: absolute;
-		bottom: 0;
+		bottom: 28px;
+		left: 0;
+		right: 0;
 		padding: 20px 0 15px;
 		font-size: 14px;
 		line-height: 18px;
@@ -661,7 +672,7 @@ img[data-src] {
 		}
 
 		.auction__caption {
-			bottom: 40px;
+			bottom: 68px;
 		}
 	}
 

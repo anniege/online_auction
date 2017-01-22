@@ -48,7 +48,7 @@ const path = {
   src: {
     html: 'src/*.html',
     views: 'src/views/*.hbs',
-    js: ['src/js/ie8.js', 'src/js/helpers.js','src/js/gettemplate.js', 'src/js/carousel.js', 'src/js/session.js', 'src/js/data.js', 'src/js/router.js', 'src/js/index.js'],
+    js: ['src/js/ie.js', 'src/js/helpers.js','src/js/gettemplate.js', 'src/js/carousel.js', 'src/js/session.js', 'src/js/data.js', 'src/js/router.js', 'src/js/index.js'],
     css: 'src/styles/*.{less,css}',
     img: 'src/images/**/*.*',
     fonts: 'src/fonts/**/*',
