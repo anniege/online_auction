@@ -1,0 +1,59 @@
+<div class="header__bg"></div>
+<div class="wrapper clearfix">
+  {{#if isLoggined}}
+  <div class="logout">
+    <p>Hello, {{user.name}}!</p>
+    <a href="#" class="logout__link">Logout</a>
+  </div>
+  {{else}}
+  {{#if isMenuLarge}}
+  <div class="authorize">
+    <a href="#" class="authorize__log-in">Log in</a>
+    <a href="#" class="authorize__sign-in">Register</a>
+  </div>
+  {{/if}}
+  {{/if}}
+  <div class="header__content">
+    <h1 class="logo">
+      <a href="/" class="logo__link">Online <span>Auction</span></a>
+    </h1>
+    <nav class="menu clearfix">
+      <ul class="menu__list">
+        <li class="menu__item"><a href="/" class="menu__link">Home</a></li>
+        <li class="menu__item"><a href="#about-id" class="menu__link">About Us</a></li>
+        <li class="menu__item"><a href="#/auctions?page=0" id="buy" class="menu__link">Buy & Sell</a></li>
+        <li class="menu__item"><a href="#how-works-id" class="menu__link">How works</a></li>
+        <li class="menu__item"><a href="#join-id" class="menu__link">Join us</a></li>
+        <li class="menu__item"><a href="#contacts" class="menu__link">Contacts</a></li>
+        <li class="menu__icon"><a class="menu__icon__link">&#9776;</a></li>
+      </ul>
+    </nav>
+    {{#if isMenuLarge}}
+    {{#if isLoggined}}
+    <a href="#" class="new-lot">Add new lot</a>
+    {{else}}
+    <a href="#" class="register">Register</a>
+    {{/if}}
+    {{/if}}
+  </div>
+  <div class="share">
+    <a class="share__btn share__btn--facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fonlineauctionusa%2F&amp;src=sdkpreparse" target="_blank">
+      <div>
+        <i class="fa fa-facebook" aria-hidden="true"></i>
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </div>
+    </a>
+    <a class="share__btn share__btn--twitter" href="http://twitter.com/share?url=http://onlineauctionusa.com;text=Online%20Auction%20joins%20customers%20and%20buyers%21;size=l&amp;count=none" target="_blank">
+      <div>
+        <i class="fa fa-twitter" aria-hidden="true"></i>
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </div>
+    </a>
+    <a class="share__btn share__btn--pinterest" data-pin-do="buttonPin" data-pin-count="above" data-pin-custom="true" data-pin-lang="ru" data-pin-save="false" href="https://ru.pinterest.com/pin/create/button/?url=http%3A%2F%2Fonlineauctionusa.com&media=http%3A%2F%2Fimage.prntscr.com%2Fimage%2F71266fce5c1f45bbb744314894efcf8d.jpg&description=online%20Auction%20joins%20customers%20and%20buyers%21" target="_blank">
+      <div>
+        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </div>
+    </a>
+  </div>
+</div>

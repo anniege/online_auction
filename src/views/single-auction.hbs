@@ -1,0 +1,95 @@
+  <div class="breadcrumbs clearfix">
+    <ul class="breadcrumbs__list">
+      <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">home</a></li>
+      <li class="breadcrumbs__item"><a href="#/auctions?page=0" class="breadcrumbs__link">auctions</a></li>
+      <li class="breadcrumbs__item"><a href="#/auctions/lot?id={{lot._id}}" class="breadcrumbs__link">{{lot._id}}</a></li>
+    </ul>
+  </div>
+  <div class="lot">
+      <header class="lot__header">
+        <h1 class="lot__title">{{lot.title}} ({{lot._id}})</h1>
+        <p class="lot__user"></p>
+        <p class="lot__address"></p>
+      </header>
+      <div class="lot__content clearfix">
+        <div class="lot__view">
+          <img data-src="images/lots/{{lot.image}}" alt="lot-image" class="lot__img">
+          <a data-pin-lang="en" data-pin-save="true" href="https://pinterest.com/pin/create/button/?url=http%3A%2F%2Flocalhost%3A8080%2F%23%2Fauctions%2Flot%3Fid%3D1&amp;media=http%3A%2F%2Flocalhost%3A8080%2Fimages%2Flots%2F{{{lot.image}}}&amp;description=Online%20Auction%3A%20{{{lot.about}}}" target="_blank" style="position: absolute; top: 270px; left: 40px; z-index: 8675309;">
+            <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" />
+          </a>
+        </div>
+        <div class="lot__caption">
+          {{#if lot.isActive}}
+          <p>This auction ends in:</p>
+          <strong class="lot__end">5 days</strong>
+          {{else}}
+          <p>This auction closed:</p>
+          <strong class="lot__end--close">{{dateFormat lot.ends}}</strong>
+          {{/if}}
+          <p class="lot__info-price">{{#if lot.isActive}}Current Bid: {{else}}Final price: {{/if}}<strong class="lot__price">{{lot.price}}</strong></p>
+          {{#if lot.isActive}}
+            {{#if isLoggined}}
+              {{#if isCurrentUserLot}}
+                <p class="lot__user">This is your lot</p>
+                {{else}}
+                <div class="lot__form-container">
+                  <form action="/addbid" class="lot__form">
+                    <input type="text" class="lot__input" value="" data-lotid="{{lot._id}}" placeholder="$00.00" title="Only numbers valid" pattern="^\s*[0-9]+\.?([0-9]*)?\s*$">
+                    <input type="submit" class="lot__submit" value="Add your bid">
+                  </form>
+                  <p class="lot__warning lot__warning--hidden"></p>
+                </div>
+                {{/if}}
+              {{else}}
+              <div class="lot__authorize">
+                <a href="#" class="authorize__log-in">Log in</a>
+                <a href="#" class="authorize__sign-in">Register</a>
+              </div>
+              {{/if}}
+          {{else}}
+          <div class="lot__finished">
+            <p>Current lot is sold</p>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+      <section class="lot__details">
+        <h3 class="lot__title lot__title--section">Action details</h3>
+        <ul class="lot__details__list">
+          <li class="lot__details__item"><span>Starting Bid:</span>{{lot.startBid}}</li>
+          <li class="lot__details__item"><span>Current Bid:</span>{{lot.price}}</li>
+          <li class="lot__details__item"><span>Start Date:</span>{{dateFormat lot.registered}}</li>
+          <li class="lot__details__item"><span>End Date:</span>{{dateFormat lot.ends}}</li>
+        </ul>
+      </section>
+      <section class="lot__payment">
+        <h2 class="lot__title lot__title--section lot__title--payment">Payment methods</h2>
+        <p class="lot__text">
+          Cash, Cashier's Check, Certified Check, or Money Order
+        </p>
+      </section>
+      <section class="lot__description">
+        <h2 class="lot__title lot__title--section lot__title--description">Lot description</h2>
+        <p class="lot__text">
+          {{lot.about}}
+        </p>
+      </section>
+      <section class="lot__user-details">
+        <h2 class="lot__title lot__title--section lot__title--user-details">Seller information</h2>
+        <div class="lot__user-details__info">
+          <div class="lot__text">
+            <div class="lot__user-details__img-container">
+              <img class="lot__user-details__img" src="images/users/{{user.image}}" alt="">
+            </div>
+            <p><span>Seller:</span>{{user.name}}</p>
+            <p><span>Pickup location:</span>{{user.address}}</p>
+          </div>
+        </div>
+      </section>
+      <section class="lot__user-location">
+        <h2 class="lot__title lot__title--section lot__title--user-location">Seller location</h2>
+        <div class="lot__user-location__wrap">
+          <div class="lot__user-location__map" id="map" data-lat="{{user.latitude}}"  data-lng="{{user.longitude}}"></div>
+        </div>
+      </section>
+  </div>

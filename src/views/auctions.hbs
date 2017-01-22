@@ -1,0 +1,96 @@
+<div class="breadcrumbs clearfix">
+  <ul class="breadcrumbs__list">
+    <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">home</a></li>
+    <li class="breadcrumbs__item"><a href="#/auctions?page=0" class="breadcrumbs__link">auctions</a></li>
+  </ul>
+</div>
+<div class="auction">
+  <div class="auction-menu">
+    <h2 class="auction-menu__title">Categories</h2>
+    <ul class="auction-menu__list">
+      <li class="auction-menu__item"><a href="#/auctions?page=0" class="auction-menu__link">All</a></li>
+      <li class="auction-menu__item"><a href="#/auctions?page=0&filter=apparel" class="auction-menu__link">Apparel</a>
+        <ul class="auction-submenu auction-submenu--hidden">
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=apparel">All</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=apparel&filter=coat">Coats</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=apparel&filter=shirt">Shirts</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=apparel&filter=jeans">Jeans</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=apparel&filter=dress">Dresses</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=apparel&filter=bag">Bags</a></li>
+        </ul>
+      </li>
+      <li class="auction-menu__item"><a href="#/auctions?page=0&filter=auto" class="auction-menu__link">Auto</a>
+        <ul class="auction-submenu auction-submenu--hidden">
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=auto">All</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=auto&filter=modern">Modern cars</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=auto&filter=moto">Motocycles</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=auto&filter=retro">Retro</a></li>
+        </ul>
+      </li>
+      <li class="auction-menu__item"><a href="#/auctions?page=0&filter=art" class="auction-menu__link">Art</a>
+        <ul class="auction-submenu auction-submenu--hidden">
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=art">All</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=art&filter=painting">Paintings</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=art&filter=coin">Coins</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=art&filter=vase">Vases</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=art&filter=sculpt">Sculpture</a></li>
+        </ul>
+      </li>
+      <li class="auction-menu__item"><a href="#/auctions?page=0&filter=devices" class="auction-menu__link">Devices</a>
+        <ul class="auction-submenu auction-submenu--hidden">
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=device">All</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=device&filter=laptop">Loptop</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=device&filter=phone">Phones</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=device&filter=tablet">Tablets</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=device&filter=watch">Watches</a></li>
+        </ul>
+      </li>
+      <li class="auction-menu__item"><a href="#/auctions?page=0&filter=furniture" class="auction-menu__link">Furniture</a>
+        <ul class="auction-submenu auction-submenu--hidden">
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=furniture">All</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=furniture&filter=table">Tables</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=furniture&filter=chair">Chairs</a></li>
+          <li class="auction-submenu__item"><a class="auction-submenu__link" href="#/auctions?page=0&filter=furniture&filter=sofa"></a></li>
+        </ul>
+      </li>
+      <li class="auction-menu__item"><a href="#/auctions?page=0&filter=other" class="auction-menu__link">Other</a></li>
+    </ul>
+  </div>
+  <div class="auction-browse auction__container">
+    <div class="auction__search">
+      <input type="text" class="auction__input" placeholder="Search lot..." value="">
+    </div>
+    {{#if auctions.length}}
+    {{#each auctions}}
+    <figure class="auction__item">
+      <a href="#/auctions/lot?id={{_id}}" class="auction__link">
+        {{#if isActive}}
+        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"><span class="auction__date">Ends: {{dateFormat ends}}</span></p>
+        <div class="auction__price auction__price--active"><p><span>Current price:</span> {{price}}</p></div>
+        {{else}}
+        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"><span class="auction__date">Auction finished</span></p>
+        <div class="auction__price auction__price--active"><p><span>Final price:</span> {{price}}</p></div>
+        {{/if}}
+        <figcaption class="auction__caption">{{title}}</figcaption>
+      </a>
+      <ul class="auction-tags clearfix">
+        {{#each tags}}
+        <li class="auction-tags__item">
+          <a class="auction-tags__link" href="#/auctions?page=0&filter={{this}}">{{this}}</a>
+        </li>
+        {{/each}}
+      </ul>
+    </figure>
+    {{/each}}
+    {{else}}
+    <p class="auction-msg">No items selected.</p>
+    {{/if}}
+    <nav class="auction__nav">
+      <ul class="auction__nav__list">
+        {{#nav count=count selected=selected}}
+        <li class="auction__nav__item"><a class="auction__nav__link {{#if selected}} auction__nav__link--active {{/if}}" data-num="{{number}}">{{number}}</a></li>
+        {{/nav}}
+      </ul>
+    </nav>
+  </div>
+</div>

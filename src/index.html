@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/favicon/favicon-64x64.png" sizes="64x64">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/style.min.css">
+  <title>ONLINE Auction</title>
+  <script>
+  if (!window.JSON) {
+    document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"><\/script>');
+  }
+  </script>
+  <!--[if lt IE 10]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
+  <script src="js/ie8.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+  <script>
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <div class="wrap">
+    <header id="header" class="header"></header>
+    <main role="main" id="main" class="main"></main>
+    <div class="buffer"></div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__container clearfix">
+    <nav class="menu menu--footer">
+      <ul class="menu__list">
+        <li class="menu__item"><a href="/" class="menu__link">Home</a></li>
+        <li class="menu__item"><a href="#about-id" class="menu__link">About Us</a></li>
+        <li class="menu__item"><a href="#/auctions?page=0" id="buy" class="menu__link">Buy & Sell</a></li>
+        <li class="menu__item"><a href="#how-works-id" class="menu__link">How works</a></li>
+        <li class="menu__item"><a href="#join-id" class="menu__link">Join us</a></li>
+        <li class="menu__item"><a href="#contacts" class="menu__link">Contacts</a></li>
+      </ul>
+    </nav>
+    <div class="contacts">
+      <h3 class="title title--footer">Contacts: </h3>
+      <p class="contacts__email">Email: <a href="mailto:office@onlineauction.com">office@onlineauction.com</a></p>
+      <p class="contacts__phone">Phone: +1 (807) 403-2313</p>
+      <p class="contacts__fax">Fax: +1 (807) 403-2315</p>
+      <p class="contacts__web"><a href="#">www.onlineauction.com</a></p>
+    </div>
+    <div class="subscribe-socials">
+      <div class="subscribe clearfix">
+        <form action="/subscribe" method="POST">
+          <input class="subscribe__email" name="email" type="text" placeholder="Email address">
+          <input class="subscribe__submit" type="submit" value="subscribe">
+        </form>
+      </div>
+      <div class="socials clearfix">
+        <div class="facebook">
+          <a class="socials__link" href="https://www.facebook.com/onlineauctionusa/" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="twitter">
+          <a class="socials__link" href="http://www.twitter.com" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="instagram">
+          <a class="socials__link" href="http://instagram.com" target="_blank">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    Copyright &copy; 2017 Online Auction All Rights Reserved.
+  </div>
+</footer>
+<div class="register-overlay">
+  <form class="form register__form">
+    <fieldset>
+      <legend>Register form</legend>
+      <label for="reg-name">First name:</label>
+      <input id="reg-name" type="text" name="username" value="Ivan" class="register__username" pattern="[a-zA-Z]{1,100}" required>
+      <label for="reg-surname">Last name:</label>
+      <input id="reg-surname" type="text" name="surname" value="Ivanov" class="register__surname" pattern="[a-zA-Z]{1,100}">
+      <label for="reg-gender">Gender:</label>
+      <select name="gender" id="gender" class="register__gender">
+        <option value="male" selected>male</option>
+        <option value="female">female</option>
+      </select>
+      <label for="reg-email">E-mail:</label>
+      <input id="reg-email" type="text" name="email" value="ivanov@gmail.com" class="register__email" pattern="[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+" required>
+      <label for="reg-address">address:</label>
+      <input id="reg-address" type="text" name="address" value="12A Peremohy Ave 0001 Kiev Ukraine" class="register__address" pattern=".*">
+      <label for="reg-phone">Mobile phone:</label>
+      <input id="reg-phone" type="text" name="phone" value="380677589462" class="register__phone" pattern="\d{12,}" required>
+      <label for="reg-about">About yourself:</label>
+      <textarea id="reg-about" name="about" class="register__about" pattern=".*"></textarea>
+      <label for="reg-pass">Password:</label>
+      <input id="reg-pass" type="password" name="password" value="ASqwerty123" class="register__password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+      <label for="reg-confirm">Confirm password:</label>
+      <input id="reg-confirm" type="password" name="cpassword" value="ASqwerty123" class="register__cpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+      <input type="submit" value="Create account" class="register__submit">
+      <input type="reset" value="Reset" class="register__reset">
+    </fieldset>
+    <div class="close-overlay">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+  </form>
+</div>
+<div class="login-overlay">
+  <form class="form login__form">
+    <fieldset>
+      <legend>Login form</legend>
+      <label for="log-email">E-mail:</label>
+      <input id="log-email" type="text" name="email" value="dolores.hopper@yahoo.com" class="login__email" pattern="[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+" required>
+      <label for="log-pass">Password:</label>
+      <input id="log-pass" type="password" name="pw" value="q1weRtyt" class="login__password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+      <div class="login__msg"><p>Not Found</p></div>
+      <input type="submit" value="Login" class="login__submit">
+      <input type="reset" value="Reset" class="login__reset">
+    </fieldset>
+    <div class="close-overlay">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+  </form>
+</div>
+<div class="add-lot-overlay">
+  <form class="form add-lot__form" action="/addlot" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Add auction lot:</legend>
+      <label for="add-lot-category">Choose category:</label>
+      <select name="category" id="add-lot-category" class="add-lot__category">
+        <option value="apparel" selected>Apparel</option>
+        <option value="auto">Auto</option>
+        <option value="art">Art</option>
+        <option value="device">Devices</option>
+        <option value="furniture">Furniture</option>
+        <option value="other">Other</option>
+      </select>
+    <label for="add-lot-startbid">Starting price (should be more then 5$):</label>
+    <input id="add-lot-startbid" type="text" name="startbid" value="5.00" class="add-lot__startbid" placeholder="$5.00" pattern="^\s*[0-9]+\.?([0-9]*)?\s*$" required>
+    <label for="add-lot-title">Title of lot:</label>
+    <input id="add-lot-title" type="text" name="title" value="" class="add-lot__title" required>
+    <label for="add-lot-image">Add lot photo:</label>
+    <input id="add-lot-image" type="file" name="image" value="" class="add-lot__image">
+    <label for="add-lot-date">Date of ending:</label>
+    <input id="add-lot-date" type="datetime-local" name="date" value="" class="add-lot__date" required>
+    <label for="add-lot-description">Description:</label>
+    <textarea id="add-lot-description" name="description" class="add-lot__description" pattern=".*"></textarea>
+    <div class="add-lot__msg"><p>Not Found</p></div>
+    <input type="submit" value="Add lot" class="add-lot__submit">
+    <input type="reset" value="Reset" class="add-lot__reset">
+  </fieldset>
+  <div class="close-overlay">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </div>
+</form>
+</div>
+<div class="gotop">
+  <a href="">
+    <i class="fa fa-angle-up" aria-hidden="true"></i>
+  </a>
+</div>
+<script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+<script async defer src="http://platform.twitter.com/widgets.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFUcbG62HzO-lalf1wn87XqfKQ10iCbKU&callback=window.loadMap"></script>
+<script src="libs/jquery/dist/jquery.min.js"></script>
+<script src="libs/handlebars/handlebars.min.js"></script>
+<script src="js/script.min.js"></script>
+</body>
+</html>

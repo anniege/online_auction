@@ -1,0 +1,172 @@
+<section class="finished section">
+  <h1 class="title">Finished Auctions</h1>
+  <div class="auction__container carousel__container--finished clearfix">
+    <div class="carousel__hidden">
+      <div class="carousel__left"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+      <ul class="carousel__l clearfix">
+        {{#each finishedAuctions}}
+        <li class="carousel__i">
+          <figure class="auction__item">
+            <a href="#/auctions/lot?id={{_id}}">
+              <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"><span class="auction__price">{{price}}</span></p>
+              <figcaption class="auction__caption">{{title}}</figcaption>
+            </a>
+          </figure>
+        </li>
+        {{/each}}
+      </ul>
+      <div class="carousel__right"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+    </div>
+  </section>
+  <section class="recent section">
+    <h1 class="title">Recent Bids</h1>
+    <div class="auction__container carousel__container--recent clearfix">
+      <div class="carousel__hidden">
+        <div class="carousel__left"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+        <ul class="carousel__l clearfix">
+          {{#each activeAuctions}}
+          {{#if isActive}}
+          <li class="carousel__i">
+            <figure class="auction__item">
+              <a href="#/auctions/lot?id={{_id}}">
+                <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"><span class="auction__date">Ends: {{dateFormat ends}}</span></p>
+                <figcaption class="auction__caption">{{title}}</figcaption>
+                <div class="auction__price auction__price--active">
+                  <p><span>Current price: </span>{{price}}</p>
+                </div>
+              </a>
+            </figure>
+          </li>
+          {{/if}}
+          {{/each}}
+        </ul>
+        <div class="carousel__right"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+      </div>
+      <div class="auction__show"><a href="#/auctions?page=0" class="auction__show__link">Browse active</a></div>
+    </div>
+  </section>
+  <section id="how-works-id" class="how-works section">
+    <h1 class="title">How it works</h1>
+    <div class="how-works__container">
+      <div class="how-works__item">
+        <div class="how-works__circle">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <h3 class="how-works__title">Register</h3>
+        <p class="how-works__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos qui, repudiandae eius veritatis quam voluptatibus corrupti quaerat, esse earum fugiat ab rem laborum omnis facere totam rerum dolorum, vero ad!</p>
+      </div>
+      <div class="how-works__item">
+        <div class="how-works__circle">
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </div>
+        <h3 class="how-works__title">Buy or Bid</h3>
+        <p class="how-works__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae asperiores alias, saepe deleniti, magnam ea sapiente rem dolorum distinctio eius omnis, nihil officiis totam ex repellendus sed ullam eos animi.</p>
+      </div>
+      <div class="how-works__item">
+        <div class="how-works__circle">
+          <i class="fa fa-gavel" aria-hidden="true"></i>
+        </div>
+        <h3 class="how-works__title">Submit a Bid</h3>
+        <p class="how-works__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni doloribus cumque sit, debitis cupiditate molestias dolores dignissimos fuga quisquam incidunt exercitationem dolor blanditiis omnis quam qui quo hic ullam, ut.</p>
+      </div>
+      <div class="how-works__item">
+        <div class="how-works__circle">
+          <i class="fa fa-trophy" aria-hidden="true"></i>
+        </div>
+        <h3 class="how-works__title">Win</h3>
+        <p class="how-works__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis veritatis, blanditiis. Placeat soluta ea qui eveniet cupiditate facere quibusdam error. Blanditiis similique recusandae voluptatem laudantium asperiores saepe neque aspernatur, cupiditate.</p>
+      </div>
+    </div>
+  </section>
+  <section id="join-id" class="join section">
+    <div class="join__bg"></div>
+    <h1 class="title">Join Us</h1>
+    <div class="wrapper">
+      <div class="join__item join__item--first clearfix">
+        <div class="join__img"></div>
+        <p class="join__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates quibusdam distinctio quia corrupti vitae odio voluptate, sequi, at amet qui atque dignissimos quas natus temporibus doloribus quos cupiditate sit consectetur facere, suscipit est eaque aliquam voluptatum! Aut explicabo suscipit ducimus, quibusdam rerum libero ullam amet culpa nam, excepturi, aliquam sed.
+        </p>
+        <p class="join__title">Alexander, London</p>
+      </div>
+      <div class="join__item join__item--second clearfix">
+        <div class="join__img"></div>
+        <p class="join__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat officia doloremque delectus corporis aliquid, voluptate perspiciatis inventore, minima asperiores laborum quas odio cupiditate recusandae aspernatur, architecto nemo. Officiis accusamus accusantium vero animi non. Illo, mollitia, nihil sequi doloribus in cumque tempora iste voluptas ea ducimus nostrum quas ratione fugiat similique, hic! Neque praesentium sequi minus, quas consequuntur laudantium unde dolorem sint assumenda dolorum fuga, rerum quis accusantium fugit voluptatibus esse.
+        </p>
+        <p class="join__title">Andrea, New York</p>
+      </div>
+      <div class="join__item join__item--third clearfix">
+        <div class="join__img"></div>
+        <p class="join__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ea sunt velit minima, aperiam sint at quod libero numquam totam fugiat asperiores eligendi, tenetur, reiciendis necessitatibus amet. Deleniti aliquam eos, consectetur sed quia minima eaque distinctio, expedita non eum veritatis iste vel odit, aut sint fuga. Magnam optio beatae officiis, nulla neque earum aperiam aliquam molestiae enim vitae dignissimos quaerat ipsa voluptate deleniti fugiat repudiandae, quis voluptatibus repellendus nostrum explicabo! Nisi nam incidunt corporis numquam autem eligendi voluptates, maiores dolor laboriosam delectus repudiandae ipsa debitis cumque perspiciatis nobis minima quo commodi nesciunt, totam ipsam modi laborum voluptatum facere reiciendis. Quidem.
+        </p>
+        <p class="join__title">Denis, Kiev</p>
+      </div>
+      <div class="join__item join__item--fourth clearfix">
+        <div class="join__img"></div>
+        <p class="join__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ea sunt velit minima, aperiam sint at quod libero numquam totam fugiat asperiores eligendi, tenetur, reiciendis necessitatibus amet. Deleniti aliquam eos, consectetur sed quia minima eaque distinctio, expedita non eum veritatis iste vel odit, aut sint fuga. Magnam optio beatae officiis, nulla neque earum aperiam aliquam molestiae enim vitae dignissimos quaerat ipsa voluptate deleniti fugiat repudiandae, quis voluptatibus repellendus nostrum explicabo! Nisi nam incidunt corporis numquam autem eligendi voluptates, maiores dolor laboriosam delectus repudiandae ipsa debitis cumque perspiciatis nobis minima quo commodi nesciunt, totam ipsam modi laborum voluptatum facere reiciendis. Quidem.
+        </p>
+        <p class="join__title">Julia, Berlin</p>
+      </div>
+    </div>
+  </section>
+  <section id="about-id" class="about">
+    <h1 class="title">About Us</h1>
+    <div class="wrapper">
+      <section class="about__section clearfix">
+        <h3 class="about__title">Our team</h3>
+        <div class="about__img">
+          <img src="images/about/team.jpg" alt="about team">
+        </div>
+        <p class="about__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti necessitatibus libero aspernatur eveniet, aut asperiores veritatis et labore minima vitae porro. Corporis, recusandae, nihil! Corrupti perspiciatis, hic libero, temporibus totam ea accusantium natus eum praesentium provident, incidunt iure delectus et sapiente. Obcaecati aspernatur excepturi, quibusdam libero provident doloribus quo reprehenderit.
+        </p>
+      </section>
+      <section class="about__section about__section--right clearfix">
+        <h3 class="about__title">Our goals</h3>
+        <div class="about__img">
+          <img src="images/about/goals.jpg" alt="about goals">
+        </div>
+        <p class="about__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti necessitatibus libero aspernatur eveniet, aut asperiores veritatis et labore minima vitae porro. Corporis, recusandae, nihil! Corrupti perspiciatis, hic libero, temporibus totam ea accusantium natus eum praesentium provident, incidunt iure delectus et sapiente. Obcaecati aspernatur excepturi, quibusdam libero provident doloribus quo reprehenderit.
+        </p>
+      </section>
+      <section class="about__section clearfix">
+        <h3 class="about__title">Our clients</h3>
+        <div class="about__img">
+          <img src="images/about/customers.jpg" alt="about clients">
+        </div>
+        <p class="about__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti necessitatibus libero aspernatur eveniet, aut asperiores veritatis et labore minima vitae porro. Corporis, recusandae, nihil! Corrupti perspiciatis, hic libero, temporibus totam ea accusantium natus eum praesentium provident, incidunt iure delectus et sapiente. Obcaecati aspernatur excepturi, quibusdam libero provident doloribus quo reprehenderit.
+        </p>
+      </section>
+    </div>
+  </section>
+  <section id="contacts" class="contacts-section">
+    <div class="contacts-section__container">
+      <div class="contacts-section__col">
+        <h1 class="title">Contacts</h1>
+        <div class="contacts-section__phones">
+          <p class="contacts-section__icon"><i class="fa fa-phone" aria-hidden="true"></i></p>
+          <p><span>Customer support 24h:</span></p>
+          <p>+1 (807) 403-2313</p>
+          <p><span>Office phone:</span></p>
+          <p>+1 (807) 403-2315</p>
+        </div>
+        <div class="contacts-section__email">
+          <p class="contacts-section__icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></p>
+          <p><span>Email:</span> office@onlineauction.com</p>
+        </div>
+        <div class="contacts-section__address">
+          <p class="contacts-section__icon"><i class="fa fa-map-marker" aria-hidden="true"></i></p>
+          <p><span>Address:</span></p>
+          <p>2905 Byrdhill Rd Richmond, VA 23228, USA</p>
+        </div>
+      </div>
+      <div class="contacts-section__col">
+        <div id="map" class="contacts-section__map"></div>
+      </div>
+    </div>
+  </section>

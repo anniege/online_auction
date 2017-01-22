@@ -1,0 +1,17 @@
+{
+  "name": "tst",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "anniege <anniegemail@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "moduleType": [],
+  "dependencies": {
+    "jquery": "*",
+    "handlebars": "^4.0.5",
+    "components-font-awesome": "^4.7.0",
+    "es6-promise": "^4.0.5"
+  }
+}
