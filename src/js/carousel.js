@@ -20,7 +20,13 @@ var carousel = function() {
 
   this.init = function() {
     var self = this;
-    carouselContainerWidth = getStyle(carouselContainer).width;
+
+    if (!window.getComputedStyle) { // старые IE
+      carouselContainerWidth = getIEComputedStyle(carouselContainer, 'width');
+    } else {
+      carouselContainerWidth = window.getComputedStyle(carouselContainer, "").width;
+    }
+    // carouselContainerWidth = getStyle(carouselContainer).width;
     widthElem = 300;
     widthElemWithMargin = widthElem + 10;
     this.opts.count = Math.floor(parseInt(carouselContainerWidth)/widthElemWithMargin);
@@ -83,10 +89,13 @@ var carousel = function() {
 
     if (carouselContainer && carouselList && carouselItems && right && left) {
       var self = this;
-      left.addEventListener('click', function() {
+      // left.addEventListener('click', function() {
+      //   self.pauseTimer(self.slideLeft);
+      // });
+      addEvent(left, 'click', function() {
         self.pauseTimer(self.slideLeft);
       });
-      right.addEventListener('click', function() {
+      addEvent(right, 'click', function() {
         self.pauseTimer(self.slideRight);
       });
 
@@ -171,4 +180,23 @@ var carousel = function() {
   function getStyle(elem) {
     return window.getComputedStyle ? window.getComputedStyle(elem, "") : elem.currentStyle;
   }
+
+  function getIEComputedStyle(elem, prop) {
+  var value = elem.currentStyle[prop] || 0;
+
+  // we use 'left' property as a place holder so backup values
+  var leftCopy = elem.style.left;
+  var runtimeLeftCopy = elem.runtimeStyle.left;
+
+  // assign to runtimeStyle and get pixel value
+  elem.runtimeStyle.left = elem.currentStyle.left;
+  elem.style.left = (prop === "fontSize") ? "1em" : value;
+  value = elem.style.pixelLeft + "px";
+
+  // restore values for left
+  elem.style.left = leftCopy;
+  elem.runtimeStyle.left = runtimeLeftCopy;
+
+  return value;
+}
 };

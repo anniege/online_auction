@@ -112,7 +112,7 @@ gulp.task('js:build', () => {
   return gulp.src(path.src.js)
   .pipe(gulpif(config.isDevelopment, sourcemaps.init()))
   .pipe(concat('script.min.js'))
-  .pipe(uglify())
+  .pipe(gulpif(!config.isDevelopment, uglify()))
   .pipe(gulpif(config.isDevelopment, sourcemaps.write()))
   .pipe(gulp.dest(path.build.js))
   .pipe(browserSync.reload({stream: true}))

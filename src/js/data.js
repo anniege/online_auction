@@ -1,17 +1,27 @@
 (function(global) {
 
-
   var promiseAuctions = $.ajax({
-    url: "/lots",
+    url: "json/data.json",
     type: "GET",
     dataType: "json"
   });
 
   var promiseUsers = $.ajax({
-    url: "/users",
+    url: "json/users.json",
     type: "GET",
     dataType: "json"
   });
+  // var promiseAuctions = $.ajax({
+  //   url: "/lots",
+  //   type: "GET",
+  //   dataType: "json"
+  // });
+  //
+  // var promiseUsers = $.ajax({
+  //   url: "/users",
+  //   type: "GET",
+  //   dataType: "json"
+  // });
 
   var Data = {
     getUser: function(userId) {

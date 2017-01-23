@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
@@ -280,8 +280,8 @@ function sendEmail(email, name, res) {
 	};
 
 	transporter.sendMail(mailOptions, function(error, info) {
-		if (err) {
-			console.log(err);
+		if (error) {
+			console.log(error);
 		}
 		console.log('Message sent: ' + info.response);
 		res.status(200).redirect('/');
@@ -292,7 +292,6 @@ function sendEmail(email, name, res) {
 function incDate(days) {
 	var date = new Date();
 	date.setDate(date.getDate() + days);
-	console.log(date);
 	return date;
 }
 

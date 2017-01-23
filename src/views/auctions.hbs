@@ -60,6 +60,16 @@
     <div class="auction__search">
       <input type="text" class="auction__input" placeholder="Search lot..." value="">
     </div>
+    <div class="auction-filters">
+      <div class="auction-filters__container">
+        <span><a class="auction-filters__link" href="#">ascending price</a></span>
+        <span><a class="auction-filters__link" href="#">descending price</a></span>
+      </div>
+      <div class="auction-filters__container">
+        <span><a class="auction-filters__link" href="#">active</a></span>
+        <span><a class="auction-filters__link" href="#">inactive</a></span>
+      </div>
+    </div>
     {{#if auctions.length}}
     {{#each auctions}}
     <figure class="auction__item">

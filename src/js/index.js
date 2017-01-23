@@ -12,6 +12,7 @@
 
 
   //global events
+
   addEvent(global, 'load', global.loadMap);
   addEvent(global, 'hashchange', global.router.render);
   addEvent(global, 'load', global.router.render);
@@ -58,8 +59,8 @@
         var activeAuctions = data.filter(function(item, index) {
           return item.isActive;
         }).sort(function (a, b) {
-          var dateA = new Date(a.ends);
-          var dateB = new Date(b.ends);
+          var dateA = new Date(a.registered);
+          var dateB = new Date(b.registered);
           if (dateA < dateB) {
             return 1;
           }
@@ -82,12 +83,14 @@
     function homeRouteCallback(params) {
       loadLargeHeader();
       $('html,body').scrollTop(0);
+
       global.loadMap(global.latitude, global.longitude);
 
       if (params && params.hash) {
         var target = document.getElementById(params.hash.slice(1));
         scrollTo(target);
       }
+
 
       new global.carousel().start({
         container: '.carousel__container--finished',
@@ -97,7 +100,7 @@
         navLeft: '.carousel__container--finished .carousel__left',
         hidden: '.carousel__container--finished .carousel__hidden',
         speed: 6000,
-        animate: false
+        animate: true
       });
 
       new global.carousel().start({
@@ -107,7 +110,7 @@
         navRight: '.carousel__container--recent .carousel__right',
         navLeft: '.carousel__container--recent .carousel__left',
         hidden: '.carousel__container--recent .carousel__hidden',
-        animate: false
+        animate: true
       });
 
       loadHandlers();
@@ -125,6 +128,18 @@
       isMenuLarge = false;
       return global.data.getLots().then(function(data) {
         var lots = data;
+
+        lots.sort(function (a, b) {
+          var priceA = +a.price.slice(1);
+          var priceB = +b.price.slice(1);
+          if (priceA < priceB) {
+            return 1;
+          }
+          if (priceA > priceB) {
+            return -1;
+          }
+          return 0;
+        });
 
         if (params && params['filter']) {
           var filters = params['filter'];
@@ -187,8 +202,6 @@
       return $.when(global.data.getLot(+params['id']), global.data.getUsers()).then(function(dataLot, dataUsers) {
         var lot = dataLot;
         var users = dataUsers[0];
-        console.log('lot: ', lot);
-        console.log('users:', users);
 
         if (!lot) return {
           'error': true
@@ -497,8 +510,10 @@
     for (var name in formInput) {
       if (formInput.hasOwnProperty(name)) {
         var flag = true;
-        if (formInput[name].getAttribute('pattern'))
-        flag = new RegExp(formInput[name].getAttribute('pattern'), 'ig').test(formInput[name].value);
+        if (formInput[name].getAttribute('pattern')) {
+          flag = new RegExp(formInput[name].getAttribute('pattern'), 'ig').test(formInput[name].value);
+        }
+
         if (!flag) {
           lotFormManager.showError(formInput[name], "Error in " + name);
           valid = flag;
@@ -506,19 +521,14 @@
       }
     }
 
-    //end date of lot should be at least 3 days later then now
     var numberOfDays = 3;
     var now = new Date();
     now.setDate(now.getDate() + numberOfDays);
-    console.log('now = ', now);
-    console.log('new Date(formInput[\'date\'].value', new Date(formInput['date'].value));
-    if (+new Date(formInput['date'].value) < +now) {
+      if (!isNaN(Date.parse(formInput['date'].value)) && (+new Date(formInput['date'].value) < +now)) {
       lotFormManager.showError(formInput['date'], 'Error in ended date: final date should be 3 days from submiting');
       valid = false;
     }
 
-    console.log('image', formInput.image.files[0]);
-    console.log('if( window.FormData !== undefined ) ', ( global.FormData !== undefined ) );
 
     if (valid && (global.FormData !== undefined )) {
       var formData = new global.FormData();
@@ -527,11 +537,11 @@
         if (formInput.hasOwnProperty(name)) {
           if (name === 'image') {
             var image = formInput.image.files[0];
-            // if (!image.type.match('image.*') && (image.size > 1048576)) {
-            //   lotFormManager.showError(formInput.image, 'Error in image file: file is not image or exeeds 1M size');
-            // } else {
+            if (!image.type.match('image.*') && (image.size > 1048576)) {
+              lotFormManager.showError(formInput.image, 'Error in image file: file is not image or exeeds 1M size');
+            } else {
             formData.append('image', image, image.name);
-            // }
+            }
           } else {
             formData.append(name, formInput[name].value);
           }
@@ -543,7 +553,6 @@
       formData.append('latitude', user.latitude);
       formData.append('longitude', user.longitude);
 
-      console.log(formData.entries());
 
       $.ajax({
         url: "/addlot",
@@ -562,8 +571,16 @@
       }).fail(function(err) {
         console.log("from error ", err);
       });
+    } else {
+      if (global.FormData === undefined ) {
+        console.log('Sorry your browser doesn\'t support formData!');
+        lotFormManager.addLotHide();
+        createDialog('Form couldn\'t be submitted!', 'err');
+        setTimeout(function() {
+          removeDialog();
+        }, 2000);
+      }
     }
-
     return false;
   }
   //--------------------End: add new lot handler-------------------------------
@@ -688,23 +705,25 @@
   global.loadMap = function(lat, lng) {
     if (lat && lng) {
       var uluru = {lat: +lat, lng: +lng};
+      console.dir('google' in global);
+      if ('google' in global) {
+        var map = new global.google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: uluru,
+          scrollwheel: false,
+          styles: [{
+            stylers: [{
+              saturation: -100
+            }]
+          }],
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: uluru,
-        scrollwheel: false,
-        styles: [{
-          stylers: [{
-            saturation: -100
-          }]
-        }],
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-
-      var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-      });
+        var marker = new global.google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
     }
   }
   //----------------------End: Google map--------------------------------------
@@ -803,6 +822,7 @@
 
 
 
+
   // animate scroll to element
   //----------------Start: scroll to specific element--------------------------
   function scrollTo(selector) {
@@ -833,7 +853,7 @@
   //animate show images on load
   //-------------------Start: fade in images-----------------------------------
   function imagesFadeIn() {
-    [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+    Array.prototype.forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
       img.setAttribute('src', img.getAttribute('data-src'));
       img.onload = function() {
         img.removeAttribute('data-src');
@@ -868,12 +888,16 @@
 
   // create dialog with message
   //---------------------Start: create dialog----------------------------------
-  function createDialog(message) {
+  function createDialog(message, status) {
     var dialog = document.createElement('DIV');
     var text = document.createElement('P');
     dialog.appendChild(text);
     text.innerText = message;
-    dialog.className = 'popup';
+    dialog.classList.add('popup');
+
+    if (status === 'err') {
+      dialog.classList.add('popup--error');
+    }
     document.querySelectorAll('.wrap')[0].appendChild(dialog);
   }
   //---------------------End: create dialog------------------------------------
@@ -987,7 +1011,6 @@
     //on menu click scroll to anchor of section
     $('.menu__link').on('click', function(e) {
       if (e.target.getAttribute('href').indexOf('/') === -1) {
-        // console.log('e.target.href.slice(1)', e.target.getAttribute('href').slice(1));
         scrollTo(document.getElementById(e.target.getAttribute('href').slice(1)));
       }
     });

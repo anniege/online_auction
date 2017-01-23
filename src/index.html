@@ -17,25 +17,17 @@
     document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"><\/script>');
   }
   </script>
-  <!--[if lt IE 10]>
+  <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
-  <script src="js/ie8.js"></script>
+  <script src="libs/es6-promise/es6-promise.min.js"></script>
+  <![endif]-->
+  <!--[if lte IE 8]>
+  <script type="text/javascript" src="selectivizr.js"></script>
   <![endif]-->
 </head>
 <body>
-
-  <script>
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-  </script>
-
-  <div class="wrap">
+<div class="wrap">
     <header id="header" class="header"></header>
     <main role="main" id="main" class="main"></main>
     <div class="buffer"></div>
@@ -163,10 +155,9 @@
     <label for="add-lot-image">Add lot photo:</label>
     <input id="add-lot-image" type="file" name="image" value="" class="add-lot__image">
     <label for="add-lot-date">Date of ending:</label>
-    <input id="add-lot-date" type="datetime-local" name="date" value="" class="add-lot__date" required>
+    <input id="add-lot-date" type="datetime-local" name="date" value="" class="add-lot__date">
     <label for="add-lot-description">Description:</label>
     <textarea id="add-lot-description" name="description" class="add-lot__description" pattern=".*"></textarea>
-    <div class="add-lot__msg"><p>Not Found</p></div>
     <input type="submit" value="Add lot" class="add-lot__submit">
     <input type="reset" value="Reset" class="add-lot__reset">
   </fieldset>
@@ -180,10 +171,19 @@
     <i class="fa fa-angle-up" aria-hidden="true"></i>
   </a>
 </div>
+<script>
+(function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
 <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
 <script async defer src="http://platform.twitter.com/widgets.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFUcbG62HzO-lalf1wn87XqfKQ10iCbKU&callback=window.loadMap"></script>
-<script src="libs/jquery/dist/jquery.min.js"></script>
+<script src="libs/jquery-legacy/dist/jquery.min.js"></script>
 <script src="libs/handlebars/handlebars.min.js"></script>
 <script src="js/script.min.js"></script>
 </body>
