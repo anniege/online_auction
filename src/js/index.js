@@ -17,7 +17,6 @@
   addEvent(global, 'load', global.router.render);
   addEvent(global, 'load', facebookInit);
   addEvent(global, 'scroll', parallax);
-  // addEvent(global, 'scroll', fixedHeaderLargeToggle);
   domIsReady(ready);
 
 
@@ -96,6 +95,7 @@
         item: '.carousel__container--finished .carousel__i',
         navRight: '.carousel__container--finished .carousel__right',
         navLeft: '.carousel__container--finished .carousel__left',
+        hidden: '.carousel__container--finished .carousel__hidden',
         speed: 6000,
         animate: false
       });
@@ -106,6 +106,7 @@
         item: '.carousel__container--recent .carousel__i',
         navRight: '.carousel__container--recent .carousel__right',
         navLeft: '.carousel__container--recent .carousel__left',
+        hidden: '.carousel__container--recent .carousel__hidden',
         animate: false
       });
 
@@ -851,10 +852,10 @@
     bg = document.querySelectorAll('.header__bg')[0];
     join = document.querySelectorAll('.join')[0];
     joinMain = document.querySelectorAll('.join .wrapper')[0];
+
     if (bg && join) {
       bg.style.top = -ypos * 0.3 + 'px';
-      content = document.querySelectorAll('.header__content')[0];
-      content.style.top = (90 + ypos * 0.1) + 'px';
+
       if ((ypos - offset(join).top + global.innerHeight - 100) > 500) {
         joinMain.classList.add('wrapper--show');
       } else {

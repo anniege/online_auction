@@ -5,6 +5,7 @@ var carousel = function() {
   var widthElemWithMargin;
   var carouselContainer;
   var carouselContainerWidth;
+  var carouselHidden;
   var carouselList;
   var carouselItems;
   var left;
@@ -15,33 +16,46 @@ var carousel = function() {
   var timerId = null;
   var startRight = false;
   var startLeft = false;
+  var elemCount;
 
   this.init = function() {
     var self = this;
     carouselContainerWidth = getStyle(carouselContainer).width;
-    widthElem = (parseInt(carouselContainerWidth)-30)/this.opts.count-10;
+    widthElem = 300;
     widthElemWithMargin = widthElem + 10;
+    this.opts.count = Math.floor(parseInt(carouselContainerWidth)/widthElemWithMargin);
 
     Array.prototype.forEach.call(carouselItems, function(el) {
       el.style.width = widthElem + 'px';
     });
 
+    if (carouselList.querySelectorAll('.cloned').length !== 0) {
+      Array.prototype.forEach.call(carouselList.querySelectorAll('.cloned'), function(el) {
+        carouselList.removeChild(el);
+      });
+    }
+
     Array.prototype.forEach.call(carouselItems, function(el, i) {
       if (i < self.opts.count) {
-        carouselList.appendChild(el.cloneNode(true));
+        var elem = el.cloneNode(true);
+        elem.classList.add('cloned');
+        carouselList.appendChild(elem);
       }
     });
 
     var before = carouselList.firstChild;
     Array.prototype.forEach.call(carouselItems, function(el, i) {
       if ((carouselItems.length - 1 - i) < self.opts.count) {
-        carouselList.insertBefore(el.cloneNode(true), before);
+        var elem = el.cloneNode(true);
+        elem.classList.add('cloned');
+        carouselList.insertBefore(elem, before);
       }
     });
 
-
     sliderTotalLength = (widthElemWithMargin)*carouselItems.length;
     sliderPageLength = (widthElemWithMargin)*this.opts.count;
+
+    carouselHidden.style.width = sliderPageLength + 'px';
 
     currentLeftValue = -sliderPageLength;
     carouselList.style.left = currentLeftValue + 'px';
@@ -51,14 +65,16 @@ var carousel = function() {
     this.opts.width = options.width || 300;
     this.opts.count = options.count || 4;
     this.opts.container = options.container || '.carousel__container';
+    this.opts.hidden = options.hidden || '.carousel__hidden';
     this.opts.list = options.list || '.carousel__l';
     this.opts.item = options.item || '.carousel__i';
     this.opts.navRight = options.navRight || '.carousel__right';
     this.opts.navLeft = options.navLeft || '.carousel__left';
     this.opts.speed = options.speed || 5000;
-    this.opts.animate = options.animate || true;
+    this.opts.animate = (options.animate === true) || false;
 
     carouselContainer = document.querySelectorAll(this.opts.container)[0];
+    carouselHidden = document.querySelectorAll(this.opts.hidden)[0];
     carouselList = document.querySelectorAll(this.opts.list)[0];
     carouselItems = document.querySelectorAll(this.opts.item);
 
@@ -74,11 +90,13 @@ var carousel = function() {
         self.pauseTimer(self.slideRight);
       });
 
-      window.addEventListener('resize', function() {
+
+      this.init();
+
+      $(window).on('resize', function() {
         self.init();
       });
 
-      this.init();
 
       if (this.opts.animate) this.startTimer();
     }
@@ -142,13 +160,13 @@ var carousel = function() {
   function animate(elem,style,unit,from,to,time) {
     if( !elem) return;
     var start = new Date().getTime(),
-        timer = setInterval(function() {
-            var step = Math.min(1,(new Date().getTime()-start)/time);
-            elem.style[style] = (from+step*(to-from))+unit;
-            if( step == 1) clearInterval(timer);
-        },25);
+    timer = setInterval(function() {
+      var step = Math.min(1,(new Date().getTime()-start)/time);
+      elem.style[style] = (from+step*(to-from))+unit;
+      if( step == 1) clearInterval(timer);
+    },25);
     elem.style[style] = from+unit;
-}
+  }
 
   function getStyle(elem) {
     return window.getComputedStyle ? window.getComputedStyle(elem, "") : elem.currentStyle;
