@@ -1,5 +1,5 @@
 var carousel = function() {
-  this.opts = {};
+  var opts = {};
 
   var widthElem;
   var widthElemWithMargin;
@@ -18,18 +18,17 @@ var carousel = function() {
   var startLeft = false;
   var elemCount;
 
-  this.init = function() {
-    var self = this;
+  var init = function() {
 
-    if (!window.getComputedStyle) { // старые IE
+    if (!window.getComputedStyle) { // old IE
       carouselContainerWidth = getIEComputedStyle(carouselContainer, 'width');
     } else {
       carouselContainerWidth = window.getComputedStyle(carouselContainer, "").width;
     }
-    // carouselContainerWidth = getStyle(carouselContainer).width;
+
     widthElem = 300;
     widthElemWithMargin = widthElem + 10;
-    this.opts.count = Math.floor(parseInt(carouselContainerWidth)/widthElemWithMargin);
+    opts.count = Math.floor(parseInt(carouselContainerWidth)/widthElemWithMargin);
 
     Array.prototype.forEach.call(carouselItems, function(el) {
       el.style.width = widthElem + 'px';
@@ -42,7 +41,7 @@ var carousel = function() {
     }
 
     Array.prototype.forEach.call(carouselItems, function(el, i) {
-      if (i < self.opts.count) {
+      if (i < opts.count) {
         var elem = el.cloneNode(true);
         elem.classList.add('cloned');
         carouselList.appendChild(elem);
@@ -51,7 +50,7 @@ var carousel = function() {
 
     var before = carouselList.firstChild;
     Array.prototype.forEach.call(carouselItems, function(el, i) {
-      if ((carouselItems.length - 1 - i) < self.opts.count) {
+      if ((carouselItems.length - 1 - i) < opts.count) {
         var elem = el.cloneNode(true);
         elem.classList.add('cloned');
         carouselList.insertBefore(elem, before);
@@ -59,7 +58,7 @@ var carousel = function() {
     });
 
     sliderTotalLength = (widthElemWithMargin)*carouselItems.length;
-    sliderPageLength = (widthElemWithMargin)*this.opts.count;
+    sliderPageLength = (widthElemWithMargin)*opts.count;
 
     carouselHidden.style.width = sliderPageLength + 'px';
 
@@ -68,50 +67,48 @@ var carousel = function() {
   }
 
   this.start = function(options) {
-    this.opts.width = options.width || 300;
-    this.opts.count = options.count || 4;
-    this.opts.container = options.container || '.carousel__container';
-    this.opts.hidden = options.hidden || '.carousel__hidden';
-    this.opts.list = options.list || '.carousel__l';
-    this.opts.item = options.item || '.carousel__i';
-    this.opts.navRight = options.navRight || '.carousel__right';
-    this.opts.navLeft = options.navLeft || '.carousel__left';
-    this.opts.speed = options.speed || 5000;
-    this.opts.animate = (options.animate === true) || false;
+    opts.width = options.width || 300;
+    opts.count = options.count || 4;
+    opts.container = options.container || '.carousel__container';
+    opts.hidden = options.hidden || '.carousel__hidden';
+    opts.list = options.list || '.carousel__l';
+    opts.item = options.item || '.carousel__i';
+    opts.navRight = options.navRight || '.carousel__right';
+    opts.navLeft = options.navLeft || '.carousel__left';
+    opts.speed = options.speed || 5000;
+    opts.animate = (options.animate === true) || false;
 
-    carouselContainer = document.querySelectorAll(this.opts.container)[0];
-    carouselHidden = document.querySelectorAll(this.opts.hidden)[0];
-    carouselList = document.querySelectorAll(this.opts.list)[0];
-    carouselItems = document.querySelectorAll(this.opts.item);
+    carouselContainer = document.querySelectorAll(opts.container)[0];
+    carouselHidden = document.querySelectorAll(opts.hidden)[0];
+    carouselList = document.querySelectorAll(opts.list)[0];
+    carouselItems = document.querySelectorAll(opts.item);
 
-    left = document.querySelectorAll(this.opts.navLeft)[0];
-    right = document.querySelectorAll(this.opts.navRight)[0];
+    left = document.querySelectorAll(opts.navLeft)[0];
+    right = document.querySelectorAll(opts.navRight)[0];
 
     if (carouselContainer && carouselList && carouselItems && right && left) {
-      var self = this;
-      // left.addEventListener('click', function() {
-      //   self.pauseTimer(self.slideLeft);
-      // });
+
+
       addEvent(left, 'click', function() {
-        self.pauseTimer(self.slideLeft);
+        pauseTimer(slideLeft);
       });
       addEvent(right, 'click', function() {
-        self.pauseTimer(self.slideRight);
+        pauseTimer(slideRight);
       });
 
 
-      this.init();
+      init();
 
       $(window).on('resize', function() {
-        self.init();
+        init();
       });
 
 
-      if (this.opts.animate) this.startTimer();
+      if (opts.animate) startTimer();
     }
   }
 
-  this.slideRight = function() {
+  function slideRight() {
     currentLeftValue -= widthElemWithMargin;
 
     if (startRight) {
@@ -128,7 +125,7 @@ var carousel = function() {
     }
   }
 
-  this.slideLeft = function() {
+  function slideLeft() {
     currentLeftValue += widthElemWithMargin;
     if (startLeft) {
       carouselList.style.left = currentLeftValue - widthElemWithMargin + 'px';
@@ -143,26 +140,26 @@ var carousel = function() {
     }
   }
 
-  this.startTimer = function() {
-    var self = this;
+  function startTimer() {
+
     timerId = setTimeout(function tick() {
-      self.slideRight();
-      timerId = setTimeout(tick, self.opts.speed);
-    }, self.opts.speed);
+      slideRight();
+      timerId = setTimeout(tick, opts.speed);
+    }, opts.speed);
   }
 
-  this.stopTimer = function() {
+  function stopTimer() {
     if (timerId) clearTimeout(timerId);
   }
 
-  this.pauseTimer = function(func) {
-    if ((this.opts.animate)&&(timerId)) {
-      this.stopTimer();
+  function pauseTimer(func) {
+    if ((opts.animate)&&(timerId)) {
+      stopTimer();
       timerId = null;
     }
     func();
-    if (this.opts.animate) {
-      this.startTimer();
+    if (opts.animate) {
+      startTimer();
     }
   }
 
@@ -182,21 +179,21 @@ var carousel = function() {
   }
 
   function getIEComputedStyle(elem, prop) {
-  var value = elem.currentStyle[prop] || 0;
+    var value = elem.currentStyle[prop] || 0;
 
-  // we use 'left' property as a place holder so backup values
-  var leftCopy = elem.style.left;
-  var runtimeLeftCopy = elem.runtimeStyle.left;
+    // we use 'left' property as a place holder so backup values
+    var leftCopy = elem.style.left;
+    var runtimeLeftCopy = elem.runtimeStyle.left;
 
-  // assign to runtimeStyle and get pixel value
-  elem.runtimeStyle.left = elem.currentStyle.left;
-  elem.style.left = (prop === "fontSize") ? "1em" : value;
-  value = elem.style.pixelLeft + "px";
+    // assign to runtimeStyle and get pixel value
+    elem.runtimeStyle.left = elem.currentStyle.left;
+    elem.style.left = (prop === "fontSize") ? "1em" : value;
+    value = elem.style.pixelLeft + "px";
 
-  // restore values for left
-  elem.style.left = leftCopy;
-  elem.runtimeStyle.left = runtimeLeftCopy;
+    // restore values for left
+    elem.style.left = leftCopy;
+    elem.runtimeStyle.left = runtimeLeftCopy;
 
-  return value;
-}
+    return value;
+  }
 };

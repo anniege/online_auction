@@ -6,13 +6,13 @@
 
     this.load = function() {
       promiseAuctions = $.ajax({
-        url: "/lots",
+        url: "json/data.json",
         type: "GET",
         dataType: "json"
       });
 
       promiseUsers = $.ajax({
-        url: "/users",
+        url: "json/users.json",
         type: "GET",
         dataType: "json"
       });
