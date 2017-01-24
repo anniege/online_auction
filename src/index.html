@@ -9,14 +9,9 @@
   <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="images/favicon/favicon-64x64.png" sizes="64x64">
+  <title>ONLINE Auction</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles/style.min.css">
-  <title>ONLINE Auction</title>
-  <script>
-  if (!window.JSON) {
-    document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"><\/script>');
-  }
-  </script>
   <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
@@ -54,7 +49,7 @@
     </div>
     <div class="subscribe-socials">
       <div class="subscribe clearfix">
-        <form action="/subscribe" method="POST">
+        <form class='subscribe__form'>
           <input class="subscribe__email" name="email" type="text" placeholder="Email address">
           <input class="subscribe__submit" type="submit" value="subscribe">
         </form>

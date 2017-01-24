@@ -1007,6 +1007,23 @@
     });
   }
   //----------------------End: nav handlers subscribe--------------------------
+
+  function subscribeEmailHandler(e) {
+    e = e || event;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var inputVal = document.querySelectorAll('.subscribe__email')[0].value;
+    document.querySelectorAll('.subscribe__email')[0].value = '';
+    $.ajax({
+      url: "/subscribe",
+      type: "POST",
+      data: {
+        email: inputVal
+      }
+    }).then(function() {
+      console.log('The subscribe is sussecful!');
+    });
+  }
   //=======================AUXILIARY===========================================
 
 
@@ -1077,6 +1094,9 @@
 
     //facebook share
     $('.share__btn--facebook').click(facebookShare);
+
+    //subscribe
+    $('.subscribe__form').on('submit', subscribeEmailHandler);
 
   }
   //-------------------End: load handlers--------------------------------------
