@@ -207,7 +207,7 @@ app.post('/addlot', function(req, res) {
 					if (err) {
 						console.log(err);
 					} else {
-						res.status(201).end('Lot added!');
+						res.status(201).end("Lot was added!");
 					}
 				});
 			}
@@ -245,7 +245,7 @@ app.post('/addbid', function(req, res) {
 				if (err){
 					console.log(err);
 				} else {
-					res.status(201).end('Bid added!');
+					res.status(201).end(bidForm.price);
 				}
 			});
 		}

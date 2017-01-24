@@ -60,41 +60,33 @@
     <div class="auction__search">
       <input type="text" class="auction__input" placeholder="Search lot..." value="">
     </div>
-    <div class="auction-filters">
-      <div class="auction-filters__container">
-        <span><a class="auction-filters__link" href="#">ascending price</a></span>
-        <span><a class="auction-filters__link" href="#">descending price</a></span>
-      </div>
-      <div class="auction-filters__container">
-        <span><a class="auction-filters__link" href="#">active</a></span>
-        <span><a class="auction-filters__link" href="#">inactive</a></span>
-      </div>
+    <div class="auction__list">
+      {{#if auctions.length}}
+      {{#each auctions}}
+      <figure class="auction__item">
+        <a href="#/auctions/lot?id={{_id}}" class="auction__link">
+          {{#if isActive}}
+          <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"></p>
+          <div class="auction__price auction__price--active"><p><span>Current price:</span> {{price}}</p></div>
+          {{else}}
+          <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"></p>
+          <div class="auction__price auction__price--active"><p><span>Final price:</span> {{price}}</p></div>
+          {{/if}}
+          <figcaption class="auction__caption">{{title}}<span class="auction__date">Ends: {{dateFormat ends}}</span></figcaption>
+        </a>
+        <ul class="auction-tags clearfix">
+          {{#each tags}}
+          <li class="auction-tags__item">
+            <a class="auction-tags__link" href="#/auctions?page=0&filter={{this}}">{{this}}</a>
+          </li>
+          {{/each}}
+        </ul>
+      </figure>
+      {{/each}}
+      {{else}}
+      <p class="auction-msg">No items selected.</p>
+      {{/if}}
     </div>
-    {{#if auctions.length}}
-    {{#each auctions}}
-    <figure class="auction__item">
-      <a href="#/auctions/lot?id={{_id}}" class="auction__link">
-        {{#if isActive}}
-        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"></p>
-        <div class="auction__price auction__price--active"><p><span>Current price:</span> {{price}}</p></div>
-        {{else}}
-        <p><img class="auction__img" data-src="images/lots/{{image}}" alt="image"></p>
-        <div class="auction__price auction__price--active"><p><span>Final price:</span> {{price}}</p></div>
-        {{/if}}
-        <figcaption class="auction__caption">{{title}}<span class="auction__date">Ends: {{dateFormat ends}}</span></figcaption>
-      </a>
-      <ul class="auction-tags clearfix">
-        {{#each tags}}
-        <li class="auction-tags__item">
-          <a class="auction-tags__link" href="#/auctions?page=0&filter={{this}}">{{this}}</a>
-        </li>
-        {{/each}}
-      </ul>
-    </figure>
-    {{/each}}
-    {{else}}
-    <p class="auction-msg">No items selected.</p>
-    {{/if}}
     <nav class="auction__nav">
       <ul class="auction__nav__list">
         {{#nav count=count selected=selected}}

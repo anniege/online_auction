@@ -12,7 +12,6 @@
 
 
   //global events
-
   addEvent(global, 'load', global.loadMap);
   addEvent(global, 'hashchange', global.router.render);
   addEvent(global, 'load', global.router.render);
@@ -23,6 +22,8 @@
 
   //DOMContentLoaded handler
   function ready() {
+    global.data.load();
+
     if (global.session.getLogginedUser()) {
       isLoggined = true;
     }
@@ -50,6 +51,7 @@
       isMenuLarge = true;
 
       return global.data.getLots().then(function(data) {
+
         var finishedAuctions = data.filter(function(item, index) {
           return !item.isActive;
         }).filter(function(item, index, array){
@@ -140,6 +142,7 @@
           }
           return 0;
         });
+
 
         if (params && params['filter']) {
           var filters = params['filter'];
@@ -524,7 +527,7 @@
     var numberOfDays = 3;
     var now = new Date();
     now.setDate(now.getDate() + numberOfDays);
-      if (!isNaN(Date.parse(formInput['date'].value)) && (+new Date(formInput['date'].value) < +now)) {
+    if (!isNaN(Date.parse(formInput['date'].value)) && (+new Date(formInput['date'].value) < +now)) {
       lotFormManager.showError(formInput['date'], 'Error in ended date: final date should be 3 days from submiting');
       valid = false;
     }
@@ -540,7 +543,7 @@
             if (!image.type.match('image.*') && (image.size > 1048576)) {
               lotFormManager.showError(formInput.image, 'Error in image file: file is not image or exeeds 1M size');
             } else {
-            formData.append('image', image, image.name);
+              formData.append('image', image, image.name);
             }
           } else {
             formData.append(name, formInput[name].value);
@@ -567,7 +570,9 @@
         setTimeout(function() {
           removeDialog();
         }, 2000);
-        global.location.reload();
+        global.data.load();
+
+
       }).fail(function(err) {
         console.log("from error ", err);
       });
@@ -594,18 +599,34 @@
     e.preventDefault();
     e.stopImmediatePropagation();
     var bidInput = document.querySelectorAll('.lot__input')[0];
-    var isValid = new RegExp(bidInput.getAttribute('pattern'), 'ig').test(bidInput.value);
-    if (isValid) {
+    var bidValue = bidInput.value;
+
+    var isValid = new RegExp(bidInput.getAttribute('pattern'), 'ig').test(bidValue);
+    if (isValid && !isNaN(+bidValue)) {
+      var arr = bidValue.split('.');
+      if (arr.length === 1) {
+        arr[1] = '00';
+      } else {
+        if (arr[1].length < 2) {
+          while (arr[1].length !== 2) {
+            arr[1] = arr[1].concat('0');
+          }
+        }
+        if (arr[1].length > 2) arr[1] = arr[1].slice(0,2);
+      }
+      bidValue = arr.join('.');
+
       var currentBid = parseInt(document.querySelectorAll('.lot__input')[0].value);
       var currentPrice = parseInt((document.querySelectorAll('.lot__price')[0].innerText).slice(1));
       if (currentBid > currentPrice && (currentBid - currentPrice) >= 5) {
         var lotId = parseInt(bidInput.getAttribute('data-lotid'));
+
         $.ajax({
           url: "/addbid",
           type: "POST",
           data: {
             lotId: lotId,
-            price: '$'+ bidInput.value,
+            price: '$'+ bidValue,
             buyerId: global.session.getLogginedUser()._id
           }
         }).done(function(data, textStatus) {
@@ -615,7 +636,9 @@
           createDialog('Bid added sussecfully!');
           setTimeout(function() {
             removeDialog();
-            global.location.reload();
+            var priceElem = document.querySelectorAll('.lot__price')[0];
+            priceElem.innerText = data;
+            console.log('preices elems:', elems);
           }, 2000);
         }).fail(function(err) {
           console.log("from error ", err);
@@ -705,7 +728,6 @@
   global.loadMap = function(lat, lng) {
     if (lat && lng) {
       var uluru = {lat: +lat, lng: +lng};
-      console.dir('google' in global);
       if ('google' in global) {
         var map = new global.google.maps.Map(document.getElementById('map'), {
           zoom: 8,
@@ -1055,6 +1077,7 @@
 
     //facebook share
     $('.share__btn--facebook').click(facebookShare);
+
   }
   //-------------------End: load handlers--------------------------------------
   //=======================ADDING HANDLERS=====================================

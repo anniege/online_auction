@@ -1826,6 +1826,32 @@ input.invalid {
 	}
 }
 
+.auction-filters {
+
+	&__container {
+		display: inline-block;
+		margin: 0 5px;
+
+		span {
+			display: inline-block;
+			padding: 3px 5px;
+		}
+	}
+
+	&__link {
+		font-size: 10px;
+		text-decoration: none;
+		color: @title;
+
+		&--active {
+			color: @base;
+		}
+
+		&:hover {
+			color: @green;
+		}
+	}
+}
 
 // media queries ===========================================================
 
